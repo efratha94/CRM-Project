@@ -12,3 +12,4 @@ USE crm_project;
 --     country VARCHAR(30)
 -- )
 
+DELETE FROM clients
