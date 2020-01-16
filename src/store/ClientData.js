@@ -21,8 +21,9 @@ export class ClientData{
     }
 
     @action updateClient = (id, firstName, lastName, country) => {
-        
         let personToUpdate = this.clients.find(client => client.id === id)
-        // console.log(personToUpdate)
+        personToUpdate.firstName = firstName
+        personToUpdate.lastName = lastName
+        personToUpdate.country = country
     }
 }

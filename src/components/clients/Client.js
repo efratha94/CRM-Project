@@ -12,16 +12,19 @@ class Client extends Component {
     }
 
     showPopup = () => {
-        // this.props.clients.updateClient(this.props.client.id)
-        this.setState({showPopup: true})
+        this.setState({ showPopup: true })
+    }
+
+    closePopup = () => {
+        this.setState({ showPopup: false })
     }
 
     render() {
         const client1 = this.props.client
         return (
-            <div key={client1.index} className="client-each" onClick={this.showPopup}>
-                {!this.state.showPopup ? null : <Popup client={client1}/>}
-                <p>{client1.firstName} {client1.lastName}</p>
+            <div key={client1.index} className="client-each">
+                {!this.state.showPopup ? null : <Popup client={client1} close={this.closePopup} />}
+                <p onClick={this.showPopup}>{client1.firstName} {client1.lastName}</p>
                 <p>{client1.country}</p>
                 <p>{client1.firstContact}</p>
                 <p>{client1.emailType}</p>

@@ -17,6 +17,9 @@ class Popup extends Component {
     //     const showOrHide = show ? "popup-show" : "popup-hide"
         
     // }
+    closePopup = () => {
+        this.props.close()
+    }
 
     updateEmployee = () => {
         this.props.clients.updateClient(this.props.client.id, this.state.name, this.state.surname, this.state.country)
@@ -41,7 +44,7 @@ class Popup extends Component {
                     <input type="text" placeholder="Surname" value={this.state.surname} onChange={this.handleInput} name="surname"/>
                     <input type="text" placeholder="Country" value={this.state.country} onChange={this.handleInput} name="country"/>
                     <button onClick={this.updateEmployee}>Update</button>
-                    <button onClick={this.props.closePopup}>X</button>
+                    <button onClick={this.closePopup}>X</button>
                 </div>
             </div>
         )
