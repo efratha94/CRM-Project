@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { observer, inject } from "mobx-react"
 import Client from "./Client"
-
+import axios from "axios"
 
 @inject("person", "clients")
 @observer
 
 class Clients extends Component {
+
 
     render() {
         const clientsArray = this.props.clients.clients

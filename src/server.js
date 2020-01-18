@@ -6,8 +6,8 @@ const port = 3002
 const api = require("./routes/api")
 // const sequelize = new Sequelize('mysql://root:tedds19942@localhost/crm_project')
 
-// app.use(bodyParser.json())
-// app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: false}))
 // mongoose.connect("mongodb://localhost/bank-react-app", { useNewUrlParser: true, useUnifiedTopology: true  })
 
 app.use(function (req, res, next) {

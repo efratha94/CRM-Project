@@ -49,7 +49,7 @@ class UpdateClient extends Component {
                 <h5>UPDATE</h5>
                 <form action="">
                 <div>
-                    <span>Client Name</span> 
+                    <span>Client Name: </span> 
                     <input list="clientsNames" onChange={this.handleInput} name="name" required="required" onInvalid={this.alertMsg}/>
                     <datalist id="clientsNames" >
                     {this.props.clients.clients.map((client, index)=> <option key={index} value={client.firstName+" "+client.lastName}>{client.firstName} {client.lastName}</option>)}
@@ -75,7 +75,7 @@ class UpdateClient extends Component {
                     <button className="emailType" onClick={this.handleEvent}>Send</button>
                 </div>
                 <div>
-                    Declare Sale!
+                    <p>Declare Sale! </p>
                     <button onClick={this.handleEvent}>Sale</button>
                 </div>
                 </form>
