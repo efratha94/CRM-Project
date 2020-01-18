@@ -13,7 +13,9 @@ class UpdateClient extends Component {
             emailType: ""
         }
     }
-
+    alertMsg = () =>{
+        alert("Must Enter A Client's Name!")
+    }
     handleInput = (event) => {
         let target = event.target
         let value = target.value
@@ -29,6 +31,7 @@ class UpdateClient extends Component {
         const clientToUpdate = this.props.clients.clients.find(client => 
             client.firstName === nameSplitted[0] && client.lastName === nameSplitted[1]
         )
+        if (clientToUpdate === undefined) {return}
         if (event.target.className === "transferEmployer"){
             this.props.clients.updateClientStatus(clientToUpdate.id, "employer", this.state.employer)
         } else if (event.target.className === "emailType"){
@@ -44,17 +47,17 @@ class UpdateClient extends Component {
         return (
             <div id="update-client-section">
                 <h5>UPDATE</h5>
+                <form action="">
                 <div>
                     <span>Client Name</span> 
-                    {/* <input type="text" placeholder="Client Name" name="name" value={this.state.name} onChange={this.handleInput} /> */}
-                    <input list="clientsNames" onChange={this.handleInput} name="name"/>
+                    <input list="clientsNames" onChange={this.handleInput} name="name" required="required" onInvalid={this.alertMsg}/>
                     <datalist id="clientsNames" >
                     {this.props.clients.clients.map((client, index)=> <option key={index} value={client.firstName+" "+client.lastName}>{client.firstName} {client.lastName}</option>)}
                     </datalist>
                 </div>
                 <div>
                     <p>Transfer Ownership to:</p>
-                    <input list="employers" onChange={this.handleInput} name="employer"/>
+                    <input list="employers" onChange={this.handleInput} name="employer" />
                     <datalist id="employers">
                         {this.props.employers.map((employer, index) => <option key={index} value={employer}>{employer}</option>)}
                     </datalist> 
@@ -75,6 +78,7 @@ class UpdateClient extends Component {
                     Declare Sale!
                     <button onClick={this.handleEvent}>Sale</button>
                 </div>
+                </form>
             </div>
         )
     }

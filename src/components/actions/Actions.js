@@ -8,17 +8,6 @@ import AddClient from "./AddClient"
 
 class Actions extends Component {
 
-    // employerArray = () => {
-    //     const employersArray = []
-    //     this.props.clients.clients.map(client => {
-    //         if (!employersArray.includes(client.owner)) {
-    //             employersArray.push(client.owner)
-    //         } else {
-    //             return
-    //         }
-    //     })
-    //     console.log(employersArray)
-    // }
     render() {
         const employerArray = []
         this.props.clients.clients.map(client => {
