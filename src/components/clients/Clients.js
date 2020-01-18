@@ -25,7 +25,7 @@ class Clients extends Component {
                     <span>First Contact</span>
                     <span>Email Type</span>
                     <span>Sold</span>
-                    <span>Owner</span>
+                    <span>Employer</span>
                 </div>
                 {clientsArray.map((client, index) => {
                     return (
@@ -34,7 +34,6 @@ class Clients extends Component {
                         </div>
                     )
                 })}
-                {/* {this.showPopup ? <Popup hidePopup={this.hidePopup}/> : null} */}
             </div>
         )
     }
