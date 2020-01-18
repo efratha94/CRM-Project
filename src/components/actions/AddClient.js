@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-class Actions extends Component{
+
+
+class AddClient extends Component{
     constructor(){
         super();
         this.state = {
@@ -15,4 +17,4 @@ class Actions extends Component{
     }
 }
 
-export default Actions
+export default AddClient

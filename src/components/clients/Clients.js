@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
 import { observer, inject } from "mobx-react"
-import Popup from "./Popup"
 import Client from "./Client"
-const ClientsJSON = require("../../react-crm-ex-efratha94/data")
+
 
 @inject("person", "clients")
 @observer
 
 class Clients extends Component {
-    hidePopup = () => {
-        this.setState({ showPopup: false })
-    }
-
-
 
     render() {
         const clientsArray = this.props.clients.clients

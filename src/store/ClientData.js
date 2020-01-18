@@ -7,7 +7,7 @@ const ClientsJSON = require("../react-crm-ex-efratha94/data")
 export class ClientData{
     constructor(){
         ClientsJSON.map(client => this.addClient(client))
-        console.log(this.clients[2])
+        console.log(this.clients[1])
     }
 
     @observable clients = []
@@ -25,5 +25,10 @@ export class ClientData{
         personToUpdate.firstName = firstName
         personToUpdate.lastName = lastName
         personToUpdate.country = country
+    }
+
+    @action updateClientStatus = (id, propertyToUpdate, newValue) => {
+        let personToUpdate = this.clients.find(client => client.id === id)
+        personToUpdate[propertyToUpdate] = newValue
     }
 }

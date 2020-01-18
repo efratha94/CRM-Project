@@ -1,6 +1,6 @@
 import './App.css';
 import {BrowserRouter as Router, Route, Link} from "react-router-dom"
-import Actions from "./components/Actions"
+import Actions from "./components/actions/Actions"
 import Analytics from "./components/Analytics"
 import Clients from "./components/clients/Clients"
 import axios from "axios"

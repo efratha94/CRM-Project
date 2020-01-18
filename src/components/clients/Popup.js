@@ -13,10 +13,7 @@ class Popup extends Component {
             country: ""
         }
     }
-    // Popup = (handleClose, show) => {
-    //     const showOrHide = show ? "popup-show" : "popup-hide"
-        
-    // }
+
     closePopup = () => {
         this.props.close()
     }
@@ -35,7 +32,7 @@ class Popup extends Component {
     }
 
     render() {
-        const client = this.props.client
+
         return (
             <div className='popup'>
                 <div className='popup\_inner'>
