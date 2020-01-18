@@ -23,7 +23,7 @@ export class ClientData {
             return client
         })
         this.clients = clientsEach
-        
+
     }
 
     @action updateClient = async (id, firstName, lastName, country) => {
@@ -31,13 +31,13 @@ export class ClientData {
         personToUpdate.firstName = firstName
         personToUpdate.lastName = lastName
         personToUpdate.country = country
-        await axios.put("http://localhost:3002/clients", {data: {id: personToUpdate.id, firstName: personToUpdate.firstName, lastName: personToUpdate.lastName, country: personToUpdate.country}})
+        await axios.put("http://localhost:3002/clients", { data: { id: personToUpdate.id, firstName: personToUpdate.firstName, lastName: personToUpdate.lastName, country: personToUpdate.country } })
     }
 
     @action updateClientStatus = async (id, propertyToUpdate, newValue) => {
         let personToUpdate = this.clients.find(client => client.id === id)
         personToUpdate[propertyToUpdate] = newValue
-        await axios.put("http://localhost:3002/update", {data: {id: id, propertyToUpdate: propertyToUpdate, newValue: newValue}})
+        await axios.put("http://localhost:3002/update", { data: { id: id, propertyToUpdate: propertyToUpdate, newValue: newValue } })
     }
 
     @action addNewClients = async (firstName, lastName, country, employer) => {
@@ -47,5 +47,11 @@ export class ClientData {
         const newClient = new Person(idGenerated, firstName, lastName, null, dateToday, null, null, employer, country)
         this.clients.push(newClient)
         await axios.post("http://localhost:3002/newClient", newClient)
+    }
+
+    @action getNewClients = async () => {
+        const newClients = await axios.get("http://localhost:3002/badges/bymonth")
+        return newClients.data
+        
     }
 }

@@ -38,7 +38,7 @@ class UpdateClient extends Component {
         } else if (event.target.className === "emailType"){
             this.props.clients.updateClientStatus(clientToUpdate.id, "emailType", this.state.emailType)
         } else {
-            this.props.clients.updateClientStatus(clientToUpdate.id, "sold", true)
+            this.props.clients.updateClientStatus(clientToUpdate.id, "sold", "1")
         }
 
     }

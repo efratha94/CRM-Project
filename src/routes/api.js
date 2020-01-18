@@ -29,4 +29,11 @@ router.post("/newClient", async function(req, res){
     const postReq = await sequelize.query(`INSERT INTO clients VALUES('${newClient.id}', '${fullName}', '${newClient.email}', '${dateToday}', '${newClient.emailType}', ${newClient.sold}, '${newClient.employer}', '${newClient.country}')`)
     res.end()
 })
+
+router.get("/badges/bymonth", async function(req, res){
+    const currentMonth = (new Date).getMonth() + 1
+    const byMonth = await sequelize.query(`SELECT clients.first_contact FROM clients WHERE MONTH(clients.first_contact) = ${currentMonth}`)
+    const numberOfNewClients = byMonth[0].length
+    res.send(`${byMonth[0].length}`)
+})
 module.exports = router
