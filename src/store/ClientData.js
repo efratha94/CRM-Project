@@ -16,7 +16,7 @@ export class ClientData{
         let clientNameSplitted = client.name.split(" ")
         let contactDate = client.firstContact
         let newContactDate = moment(contactDate).format("YYYY-MM-DD")
-        client = new Person(client._id, clientNameSplitted[0], clientNameSplitted[1], client.email, newContactDate, client.emailType, client.sold, client.owner, client.country)
+        client = new Person(client._id, clientNameSplitted[0], clientNameSplitted[1], client.email, newContactDate, client.emailType, client.sold, client.employer, client.country)
         this.clients.push(client)
     }
 

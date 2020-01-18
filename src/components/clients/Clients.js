@@ -8,15 +8,6 @@ const ClientsJSON = require("../../react-crm-ex-efratha94/data")
 @observer
 
 class Clients extends Component {
-    // constructor() {
-    //     super()
-    //     this.state = { showPopup: false }
-    // }
-
-    // showPopup = () =>{
-    //     this.props.
-    // }
-
     hidePopup = () => {
         this.setState({ showPopup: false })
     }

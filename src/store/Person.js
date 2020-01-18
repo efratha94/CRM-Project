@@ -7,9 +7,9 @@ export class Person{
     @observable firstContact
     @observable emailType
     @observable sold
-    @observable owner
+    @observable employer
     @observable country
-    constructor(id, firstName, lastName, email, firstContact, emailType, sold, owner, country){
+    constructor(id, firstName, lastName, email, firstContact, emailType, sold, employer, country){
         this.id = id
         this.firstName = firstName
         this.lastName = lastName
@@ -17,7 +17,7 @@ export class Person{
         this.firstContact = firstContact
         this.emailType = emailType
         this.sold = sold
-        this.owner = owner
+        this.employer = employer
         this.country = country
     }
 }

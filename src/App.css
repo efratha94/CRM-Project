@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+#all-clients{
+  display: grid;
+}
+
+#client-categories{
+  display: grid;
+  grid-template-rows: repeat(1, 1fr);
+  grid-template-columns: repeat(7, 1fr);
+}
+.client-each{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  grid-template-areas: 
+  "name surname country firstContact emailType Sold Employer";
+}
+
