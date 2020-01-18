@@ -34,10 +34,10 @@ export class ClientData {
         await axios.put("http://localhost:3002/clients", {data: {id: personToUpdate.id, firstName: personToUpdate.firstName, lastName: personToUpdate.lastName, country: personToUpdate.country}})
     }
 
-    @action updateClientStatus = (id, propertyToUpdate, newValue) => {
+    @action updateClientStatus = async (id, propertyToUpdate, newValue) => {
         let personToUpdate = this.clients.find(client => client.id === id)
         personToUpdate[propertyToUpdate] = newValue
-        // console.log()
+        await axios.put("http://localhost:3002/update", {data: {id: id, propertyToUpdate: propertyToUpdate, newValue: newValue}})
     }
 
     @action addNewClients = async (firstName, lastName, country, employer) => {
@@ -46,6 +46,6 @@ export class ClientData {
         const dateToday = moment(new Date()).format("YYYY-MM-DD")
         const newClient = new Person(idGenerated, firstName, lastName, null, dateToday, null, null, employer, country)
         this.clients.push(newClient)
-
+        await axios.post("http://localhost:3002/newClient", newClient)
     }
 }

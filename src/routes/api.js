@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const Sequelize = require("sequelize")
 const sequelize = new Sequelize("mysql://root:tedds19942@localhost/crm_project")
+const moment = require("moment")
 
 router.get("/clients", async function(req, res){
     let clients = await sequelize.query(`SELECT * FROM clients`)
@@ -15,4 +16,17 @@ router.put("/clients", async function(req, res){
     res.end()
 })
 
+router.put("/update", async function(req, res){
+    const updateStatus = req.body.data
+    const update = await sequelize.query(`UPDATE clients SET clients.${updateStatus.propertyToUpdate} = '${updateStatus.newValue}' WHERE clients.id = '${updateStatus.id}'`)
+    res.end()
+})
+
+router.post("/newClient", async function(req, res){
+    const newClient = req.body
+    const fullName = `${newClient.firstName} ${newClient.lastName}`
+    const dateToday = moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
+    const postReq = await sequelize.query(`INSERT INTO clients VALUES('${newClient.id}', '${fullName}', '${newClient.email}', '${dateToday}', '${newClient.emailType}', ${newClient.sold}, '${newClient.employer}', '${newClient.country}')`)
+    res.end()
+})
 module.exports = router

@@ -26,6 +26,7 @@ class UpdateClient extends Component {
     }
 
     handleEvent = (event) => {
+        event.preventDefault()
         const employeeName = this.state.name
         const nameSplitted = employeeName.split(" ")
         const clientToUpdate = this.props.clients.clients.find(client => 
