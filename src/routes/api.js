@@ -47,8 +47,8 @@ router.get("/salesSinceDate", async function(req, res){
     const someDate = await sequelize.query(`SELECT first_contact FROM clients WHERE clients.id = '5b9f48a201bd0a73733a1639'`)
     const someRandomDate = someDate[0][0].first_contact.toISOString()
     const days30Prior = moment(someRandomDate).subtract(30, 'days').toISOString()
-    
-    const sinceDate = await sequelize.query(`SELECT COUNT(sold), first_contact FROM clients WHERE clients.sold=1 AND first_contact BETWEEN '${days30Prior}' AND '${someRandomDate}' GROUP BY first_contact ORDER BY first_contact ASC`)
+
+    const sinceDate = await sequelize.query(`SELECT SUM(sold), first_contact FROM clients WHERE first_contact BETWEEN '${days30Prior}' AND '${someRandomDate}' GROUP BY first_contact ORDER BY first_contact ASC`)
     res.send(sinceDate[0])
 })
 module.exports = router
