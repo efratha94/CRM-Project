@@ -12,6 +12,7 @@ export class ClientData {
 
     @observable clients = []
     @observable employersBySales = []
+    @observable countriesTotalSales = []
 
     @action getClients = async () => {
         const clientsInDB = await axios.get("http://localhost:3002/clients")
@@ -53,5 +54,11 @@ export class ClientData {
         const employersRequest = await axios.get("http://localhost:3002/employers")
         this.employersBySales = employersRequest.data
 
+    }
+
+    @action salesByCountry = async() =>{
+        const countriesRequest = await axios.get("http://localhost:3002/countries")
+        this.countriesTotalSales = countriesRequest.data
+        // console.log(this.countriesTotalSales)
     }
 }

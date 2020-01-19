@@ -7,12 +7,6 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 @observer
 
 class TopEmployees extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-
-        }
-    }
 
     // getOwnersWhoseEmployeesHaveSold = () => {
     //     const employersBySalesCopy = {...this.state.employersBySales}
@@ -34,7 +28,7 @@ class TopEmployees extends Component {
     }
 
     createData(array) {
-        const data = [{ name: array[0].employer, Sales: array[0]["COUNT(sold)"] }, { name: array[1].employer, Sales: array[1]["COUNT(sold)"] }, { name: array[2].employer, Sales: array[2]["COUNT(sold)"] }]
+        const data = [{ Name: array[0].employer, Sales: array[0]["COUNT(sold)"] }, { Name: array[1].employer, Sales: array[1]["COUNT(sold)"] }, { Name: array[2].employer, Sales: array[2]["COUNT(sold)"] }]
         return data
     }
 
@@ -46,17 +40,17 @@ class TopEmployees extends Component {
         return (
             <div>
                 <h1>Top Employees</h1>
-                <ResponsiveContainer width={500} height={250}>
-                <BarChart data={chartData} margin={{top: 20, right: 30, left: 0, bottom: 0}}>
+                {/* <ResponsiveContainer > */}
+                <BarChart width={500} height={250} data={chartData} margin={{top: 20, right: 30, left: 0, bottom: 0}}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
+                    <XAxis dataKey="Name" />
                     <YAxis />
-                    <Tooltip offset="0" label="false"/>
+                    <Tooltip offset={0} label="false"/>
                     <Legend />
                     <Bar dataKey="Sales" fill="#8884d8" layout='horizontal' isAnimationActive={false}/>
                     
                 </BarChart>
-                </ResponsiveContainer>
+                {/* </ResponsiveContainer> */}
             </div>
         )
     }

@@ -35,4 +35,8 @@ router.get("/employers", async function(req, res){
     res.send(employers[0])
 })
 
+router.get("/countries", async function(req, res){
+    const countries = await sequelize.query(`SELECT country, COUNT(sold) FROM clients WHERE clients.sold=1 GROUP BY country`)
+    res.send(countries[0])
+})
 module.exports = router
