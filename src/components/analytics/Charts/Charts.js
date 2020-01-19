@@ -16,6 +16,7 @@ class Charts extends Component{
                 <TopEmployees />
                 <SalesByCountry />
                 <SalesSince />
+                <ClientAcquisition />
             </div>
         )
     }
