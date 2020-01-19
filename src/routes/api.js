@@ -51,4 +51,19 @@ router.get("/salesSinceDate", async function(req, res){
     const sinceDate = await sequelize.query(`SELECT SUM(sold), first_contact FROM clients WHERE first_contact BETWEEN '${days30Prior}' AND '${someRandomDate}' GROUP BY first_contact ORDER BY first_contact ASC`)
     res.send(sinceDate[0])
 })
+
+router.get("/byAcquisition", async function(req, res){
+    const dateToday = moment().toISOString()
+    const oneYearAgo = moment().subtract(365, 'days').toISOString()
+    const sixMonthsAgo = moment().subtract(6, 'months').toISOString()
+    
+    const untilOneYearAgo = await sequelize.query(`SELECT COUNT(*) FROM clients WHERE first_contact BETWEEN '2000-07-19T17:02:28.559Z' AND '${oneYearAgo}' ORDER BY first_contact ASC`)
+    const twelveTo6MonthsAgo = await sequelize.query(`SELECT COUNT(*) FROM clients WHERE first_contact BETWEEN '${oneYearAgo}' AND '${sixMonthsAgo}' ORDER BY first_contact ASC`)
+    const lastSixMonths = await sequelize.query(`SELECT COUNT(*) FROM clients WHERE first_contact BETWEEN '${sixMonthsAgo}' AND '${dateToday}' ORDER BY first_contact ASC`)
+    const acquisitionByDate = {"+12": untilOneYearAgo[0][0]['COUNT(*)'], "12-6": twelveTo6MonthsAgo[0][0]['COUNT(*)'], "6-0": lastSixMonths[0][0]['COUNT(*)']}
+    res.send(acquisitionByDate)
+    // console.log(acquisitionByDate)
+})
+
+
 module.exports = router

@@ -14,6 +14,7 @@ export class ClientData {
     @observable employersBySales = []
     @observable countriesTotalSales = []
     @observable salesByDate = []
+    @observable clientsByAcquisition = {}
 
     @action getClients = async () => {
         const clientsInDB = await axios.get("http://localhost:3002/clients")
@@ -65,5 +66,11 @@ export class ClientData {
     @action salesSinceDate = async() => {
         const byDate = await axios.get("http://localhost:3002/salesSinceDate")
         this.salesByDate = byDate.data
+    }
+
+    @action acquisitionDate = async() => {
+        const byAcquisition = await axios.get("http://localhost:3002/byAcquisition")
+        this.clientsByAcquisition = byAcquisition.data
+        // console.log(this.clientsByAcquisition)
     }
 }
