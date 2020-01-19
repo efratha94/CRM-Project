@@ -6,11 +6,19 @@ import Clients from "./components/clients/Clients"
 import axios from "axios"
 
 import React, { Component } from 'react';
+import { observer, inject } from "mobx-react"
+@inject("person", "clients")
+@observer
+
 class App extends Component{
     constructor(){
         super();
         this.state = {
         }
+    }
+
+    componentDidMount(){
+      this.props.clients.getClients()
     }
 
     render(){

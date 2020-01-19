@@ -1,4 +1,4 @@
-import { observable, computed, action } from 'mobx';
+import { observable, computed, action, toJS } from 'mobx';
 import { Person } from "./Person"
 import moment from "moment"
 import axios from "axios"
@@ -8,12 +8,12 @@ const ClientsJSON = require("../react-crm-ex-efratha94/data")
 
 export class ClientData {
     constructor() {
-        this.getClients()
     }
 
     @observable clients = []
+    @observable employersBySales = []
 
-    getClients = async () => {
+    @action getClients = async () => {
         const clientsInDB = await axios.get("http://localhost:3002/clients")
         
         let clientsEach = clientsInDB.data.map(client => {
@@ -40,7 +40,7 @@ export class ClientData {
         await axios.put("http://localhost:3002/update", { data: { id: id, propertyToUpdate: propertyToUpdate, newValue: newValue } })
     }
 
-    addNewClients = async (firstName, lastName, country, employer) => {
+    @action addNewClients = async (firstName, lastName, country, employer) => {
         const idAlmostGenerated = await axios.get("https://helloacm.com/api/guid-generator/?n=1&nohyphens")
         const idGenerated = idAlmostGenerated.data.guid[0]
         const dateToday = moment(new Date()).format("YYYY-MM-DD")
@@ -49,8 +49,9 @@ export class ClientData {
         await axios.post("http://localhost:3002/newClient", newClient)
     }
 
-    // @action getNewClients = async () => {
-    //     const newClients = await axios.get("http://localhost:3002/badges/bymonth")
-    //     this.length = newClients.data
-    // }
+    @action employersBySalesFunction = async() => {
+        const employersRequest = await axios.get("http://localhost:3002/employers")
+        this.employersBySales = employersRequest.data
+
+    }
 }

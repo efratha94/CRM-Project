@@ -7,11 +7,6 @@ import Charts from "./Charts/Charts"
 @observer
 
 class Analytics extends Component{
-    constructor(){
-        super();
-        this.state = {
-        }
-    }
 
     render(){
         return (
