@@ -15,6 +15,7 @@ class HottestCountry extends Component {
                 countries[client.country] += client.sold
             }
         })
+        
         const hottestCountrySales = Math.max(...Object.values(countries))
         const hottestountry = Object.keys(countries).find(key => countries[key] == hottestCountrySales)
 
