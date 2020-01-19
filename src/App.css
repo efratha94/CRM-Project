@@ -52,3 +52,9 @@
   grid-template-rows: repeat(1, 1fr);
 }
 
+.recharts-rectangle:focus{
+  outline: none;
+}
+.recharts-tooltip-curose:focus{
+  outline: none
+}
