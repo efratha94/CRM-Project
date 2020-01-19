@@ -10,7 +10,7 @@ export class ClientData {
     constructor() {
         this.getClients()
     }
-    // @observable length
+
     @observable clients = []
 
     getClients = async () => {

@@ -8,17 +8,18 @@ class newClients extends Component {
 
 
     render() {
-        // this.props.clients.getNewClients()
         const months = ["January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"]
-        const currentMonth = (new Date).getMonth()
-        // const firstContacts = this.props.clients.clients.map(client => client.firstContact)
-        // console.log(firstContacts)
+        const currentMonth = (new Date).getMonth() + 1
+        const currentYear = (new Date).getFullYear()
+        const firstContacts = this.props.clients.clients.map(client => client.firstContact.split("-"))
+        const relevantNewClients = firstContacts.filter(client => client[1] == currentMonth && client[0] == currentYear).length
+           
 
         return (
             <div>
-                {/* <h2>{this.props.clients.length}</h2>
-                <h4>New clients in {months[currentMonth]}</h4> */}
+                <h2>{relevantNewClients}</h2>
+                <h4>New clients in {months[currentMonth -1]}</h4>
             </div>
         )
     }
