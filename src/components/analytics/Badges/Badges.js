@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { observer, inject } from "mobx-react"
-import emailsSent from "./EmailsSent"
-import hottestCountry from "./HottestsCountry"
+import EmailsSent from "./EmailsSent"
+import HottestCountry from "./HottestsCountry"
 import NewClients from "./NewClients"
-import outstandingClients from "./OutstandingClients"
+import OutstandingClients from "./OutstandingClients"
 
 
 @inject("person", "clients")
@@ -15,6 +15,9 @@ class Badges extends Component{
         return (
             <div id="badges-container">
                 <NewClients />
+                <EmailsSent />
+                <OutstandingClients />
+                <HottestCountry />
             </div>
         )
     }
