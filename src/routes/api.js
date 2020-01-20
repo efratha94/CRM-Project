@@ -54,15 +54,16 @@ router.get("/salesSinceDate", async function(req, res){
 
 router.get("/byAcquisition", async function(req, res){
     const dateToday = moment().toISOString()
+    const threeYearsAgo = moment().subtract(3, 'years').toISOString()
     const oneYearAgo = moment().subtract(365, 'days').toISOString()
     const sixMonthsAgo = moment().subtract(6, 'months').toISOString()
     
-    const untilOneYearAgo = await sequelize.query(`SELECT COUNT(*) FROM clients WHERE first_contact BETWEEN '2000-07-19T17:02:28.559Z' AND '${oneYearAgo}' ORDER BY first_contact ASC`)
-    const twelveTo6MonthsAgo = await sequelize.query(`SELECT COUNT(*) FROM clients WHERE first_contact BETWEEN '${oneYearAgo}' AND '${sixMonthsAgo}' ORDER BY first_contact ASC`)
-    const lastSixMonths = await sequelize.query(`SELECT COUNT(*) FROM clients WHERE first_contact BETWEEN '${sixMonthsAgo}' AND '${dateToday}' ORDER BY first_contact ASC`)
-    const acquisitionByDate = {"+12": untilOneYearAgo[0][0]['COUNT(*)'], "12-6": twelveTo6MonthsAgo[0][0]['COUNT(*)'], "6-0": lastSixMonths[0][0]['COUNT(*)']}
+    const untilThreeYearsAgo = await sequelize.query(`SELECT COUNT(*) FROM clients WHERE first_contact BETWEEN '2000-07-19T17:02:28.559Z' AND '${threeYearsAgo}' ORDER BY first_contact ASC`)
+    const threeToOneYearAgo = await sequelize.query(`SELECT COUNT(*) FROM clients WHERE first_contact BETWEEN '${threeYearsAgo}' AND '${oneYearAgo}' ORDER BY first_contact ASC`)
+    const lastYear = await sequelize.query(`SELECT COUNT(*) FROM clients WHERE first_contact BETWEEN '${oneYearAgo}' AND '${dateToday}' ORDER BY first_contact ASC`)
+    // const lastSixMonths = await sequelize.query(`SELECT COUNT(*) FROM clients WHERE first_contact BETWEEN '${sixMonthsAgo}' AND '${dateToday}' ORDER BY first_contact ASC`)
+    const acquisitionByDate = [{time: " > 3 Years", count: untilThreeYearsAgo[0][0]['COUNT(*)']}, {time: "1-3 Years", count: threeToOneYearAgo[0][0]['COUNT(*)']}, {time: "< 12 Months", count: lastYear[0][0]['COUNT(*)']}]
     res.send(acquisitionByDate)
-    // console.log(acquisitionByDate)
 })
 
 

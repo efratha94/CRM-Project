@@ -1,24 +1,9 @@
 import React, { Component } from 'react';
 import { observer, inject } from "mobx-react"
-import { PieChart, Pie, Sector, Cell } from 'recharts';
-import moment from "moment"
+import { PieChart, Pie, Tooltip, Cell} from 'recharts';
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+const COLORS = ['#039BE5','#D81B60', '#FFCA28', '#4DD0E1'];
 
-const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({
-    cx, cy, midAngle, innerRadius, outerRadius, percent, index,
-}) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-    return (
-        <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-            {`${(percent * 100).toFixed(0)}%`}
-        </text>
-    );
-};
 
 
 @inject("person", "clients")
@@ -35,12 +20,12 @@ class ClientAcquisition extends Component {
         this.props.clients.acquisitionDate()
     }
 
-    createChartDataFour(object) {
-        // let dataArray = {}
-        // for (let [key, value] of Object.entries(object)) {
-        //     dataArray[key] = value
-        // }
-        // return dataArray
+    createChartDataFour(array) {
+
+        let dataArray = []
+        array.map(item => dataArray.push(item))
+        console.log(dataArray)
+        return dataArray
     }
 
     render() {
@@ -49,13 +34,44 @@ class ClientAcquisition extends Component {
 
         return (
             <div>
-                {/* <PieChart width={400} height={400}>
-                    <Pie data={chartDataFour} cx={200} cy={200} labelLine={false} label={renderCustomizedLabel} outerRadius={80} fill="#8884d8" dataKey={Object.keys(chartDataFour)}>
+                <h1>Client Acquisition By Date</h1>
+                <PieChart width={500} height={500}>
+
+                    <Pie data={chartDataFour} cx={200} cy={200} outerRadius={80} fill="#8884d8" nameKey="time" dataKey="count" labelLine={true} label={({
+                        cx,
+                        cy,
+                        midAngle,
+                        innerRadius,
+                        outerRadius,
+                        value,
+                        index
+                    }) => {
+                        const RADIAN = Math.PI / 180;
+                        // eslint-disable-next-line
+                        const radius = 25 + innerRadius + (outerRadius - innerRadius);
+                        // eslint-disable-next-line
+                        const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                        // eslint-disable-next-line
+                        const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+                        return (
+                            <text
+                                x={x}
+                                y={y}
+                                fill={COLORS[index % COLORS.length]}
+                                textAnchor={x > cx ? "start" : "end"}
+                                dominantBaseline="central"
+                            >
+                                {chartDataFour[index].time}: {chartDataFour[index].count}
+                            </text>
+                        );
+                    }}>
                         {
-                            data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
+                            chartDataFour.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
                         }
                     </Pie>
-                </PieChart> */}
+                    <Tooltip offset={0} label="false" content="time" />
+                </PieChart>
             </div>
         )
     }

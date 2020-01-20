@@ -14,7 +14,7 @@ export class ClientData {
     @observable employersBySales = []
     @observable countriesTotalSales = []
     @observable salesByDate = []
-    @observable clientsByAcquisition = {}
+    @observable clientsByAcquisition = []
 
     @action getClients = async () => {
         const clientsInDB = await axios.get("http://localhost:3002/clients")
