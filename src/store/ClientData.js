@@ -9,7 +9,7 @@ const ClientsJSON = require("../react-crm-ex-efratha94/data")
 export class ClientData {
     constructor() {
     }
-
+    categories = ["Name", "Surname", "Country", "First Contact", "Email Type", "Sold", "Employer"]
     @observable clients = []
     @observable employersBySales = []
     @observable countriesTotalSales = []
@@ -71,6 +71,5 @@ export class ClientData {
     @action acquisitionDate = async() => {
         const byAcquisition = await axios.get("http://localhost:3002/byAcquisition")
         this.clientsByAcquisition = byAcquisition.data
-        // console.log(this.clientsByAcquisition)
     }
 }

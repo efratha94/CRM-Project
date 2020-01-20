@@ -7,21 +7,84 @@ import axios from "axios"
 @observer
 
 class Clients extends Component {
+    constructor(){
+        super();
+        this.state = {
+            searchInput: "",
+            categories: ""
+        }
+    }
 
+    handleInput = (event) => {
+        let target = event.target
+        let value = target.value
+        let name = target.name
+        switch (value){
+            case "Name":
+                value = "firstName"
+                break;
+            case "Surname":
+                value = "lastName"
+                break;
+            case "Country":
+                value = "country"
+                break;
+            case "First Contact":
+                value = "firstContact"
+                break;
+            case "Email Type":
+                value = "emailType"
+                break;
+            case "Sold":
+                value = "sold"
+                break;
+            case "Employer":
+                value = "employer"
+        }
+        this.setState({
+            [name]: value
+        })
+    }
+
+    keyPress = (event) => {
+        if (event.key === "Enter"){
+           this.displaySearches()
+           this.setState({
+               searchInput: ""
+           })
+        }
+    }
+
+    displaySearches = () =>{
+        let clientInput = this.state.searchInput.toLowerCase()
+        let clientsArray = [...this.props.clients.clients]
+        console.log(this.state)
+        console.log(clientsArray[0])
+        console.log(Object.keys(clientsArray[0]))
+        
+        //need to find how to get the categories straight
+        // let clientSearch = clientsArray.filter(client =>)
+    }
 
     render() {
+        const categoriesArray = this.props.clients.categories
         const clientsArray = this.props.clients.clients
+        // console.log(Object.keys(clientsArray[0]))
         return (
             <div id="all-clients">
                 <div id="client-categories">
-                    <span>Name</span>
-                    <span>Surame</span>
-                    <span>Country</span>
-                    <span>First Contact</span>
-                    <span>Email Type</span>
-                    <span>Sold</span>
-                    <span>Employer</span>
+                    {categoriesArray.map((category, index) => <span key={index}>{category}</span>)}
                 </div>
+
+                <div id="search-client">
+                    <input type="text" name="searchInput" onChange={this.handleInput} onKeyPress={this.keyPress} value={this.state.searchInput}/>
+                    <input list="categories" name="categories" onChange={this.handleInput}/>
+                    <datalist id="categories">
+                    
+                {categoriesArray.map((category, index) => <option key={index} value={category}>{category}</option>)}
+                    </datalist>
+                </div>
+
                 {clientsArray.map((client, index) => {
                     return (
                         <div key={index}>
