@@ -59,12 +59,14 @@ class Clients extends Component {
         let clientInput = this.state.searchInput.toLowerCase()
         let categoryInput = this.state.categories
         let clientsArray = [...this.props.clients.clients]
-
+        let abc = []
         console.log(clientInput, categoryInput)
         //need to find how to get the categories straight
         let clientSearch = clientsArray.filter(client => {
-            let searchCategory = client[categoryInput]
+            let clientCategoryValue = client[categoryInput].toLowerCase()
+           return clientCategoryValue.includes(`${clientInput}`)
             
+            // abc.push
         })
         console.log(clientSearch)
     }
