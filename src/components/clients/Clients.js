@@ -57,13 +57,16 @@ class Clients extends Component {
 
     displaySearches = () =>{
         let clientInput = this.state.searchInput.toLowerCase()
+        let categoryInput = this.state.categories
         let clientsArray = [...this.props.clients.clients]
-        console.log(this.state)
-        console.log(clientsArray[0])
-        console.log(Object.keys(clientsArray[0]))
-        
+
+        console.log(clientInput, categoryInput)
         //need to find how to get the categories straight
-        // let clientSearch = clientsArray.filter(client =>)
+        let clientSearch = clientsArray.filter(client => {
+            let searchCategory = client[categoryInput]
+            
+        })
+        console.log(clientSearch)
     }
 
     render() {
