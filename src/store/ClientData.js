@@ -13,6 +13,7 @@ export class ClientData {
     @observable clients = []
     @observable employersBySales = []
     @observable countriesTotalSales = []
+    @observable salesByParameterArray = []
     @observable salesByDate = []
     @observable clientsByAcquisition = []
     @observable clientsFiltered = []
@@ -62,6 +63,7 @@ export class ClientData {
     @action salesByCountry = async() =>{
         const countriesRequest = await axios.get("http://localhost:3002/countries")
         this.countriesTotalSales = countriesRequest.data
+        // console.log(countriesRequest.data)
     }
 
     @action salesSinceDate = async() => {
@@ -85,5 +87,11 @@ export class ClientData {
         } else {
             this.clientsFiltered = []
         }
+    }
+
+    @action salesByParameter = async (category) => {
+        const salesBy = await axios.get(`http://localhost:3002/${category}`)
+        this.salesByParameterArray = salesBy.data
+        // console.log(salesBy.data)
     }
 }

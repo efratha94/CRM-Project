@@ -6,29 +6,49 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 @observer
 
 class SalesByCountry extends Component{
-
-    componentDidMount(){
-        this.props.clients.salesByCountry()
+    state ={
+        category: "Country"
     }
 
+    componentDidMount(){
+        this.props.clients.salesByParameter(this.state.category)
+    }
+
+    handleChange = (event) => {
+        this.setState({
+            category: event.target.value
+        }, function(){this.props.clients.salesByParameter(this.state.category)})
+    }
 
     createChartData(array){
+        console.log(array)
         let dataArray = []
-        array.map(item => dataArray.push({Country: item.country, Sales: item["COUNT(sold)"]}))
+        array.map((item, index) => {
+            dataArray.push({[Object.keys(array[index])[0]]: Object.values(array[index])[0], Sales: item["COUNT(sold)"]})
+        })
+        console.log(dataArray)
         return dataArray
     }
 
     render(){
-        const salesOrganziedByCountries = this.props.clients.countriesTotalSales
-        const chartDataTwo = salesOrganziedByCountries[0] ? this.createChartData(salesOrganziedByCountries) : null
+        const salesByParam = this.props.clients.salesByParameterArray
+        const chartDataTwo = salesByParam[0] ? this.createChartData(salesByParam) : null
+        const categories = ["Country", "Email Type", "Month", "Employer"]
+        console.log(salesByParam)
+        // if (!Object.values(salesByParam).includes("COUNT(sold)")){
+        //     console.log("nkn")
+        // }
 
         return (
             <div>
-                <h1>Sales By Country</h1>
-                
+                <h1>Sales By {this.state.category}</h1>
+                <select onChange={this.handleChange} name="category" value={this.state.categoryValue}>
+                    {categories.map((category, index) => <option key={index} value={category}>{category}</option>)}
+                </select>
+
                 <BarChart width={500} height={250} data={chartDataTwo} margin={{top: 20, right: 30, left: 0, bottom: 0}}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="Country" interval={0}/>
+                    <XAxis dataKey={this.state.category == "Email Type" ? "emailType" : this.state.category} interval={0}/>
                     <YAxis />
                     <Tooltip offset={0} label="false"/>
                     <Legend />

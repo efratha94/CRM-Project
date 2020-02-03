@@ -35,6 +35,7 @@ router.get("/employers", async function(req, res){
     res.send(employers[0])
 })
 
+
 router.get("/countries", async function(req, res){
     const countries = await sequelize.query(`SELECT country, COUNT(sold) FROM clients WHERE clients.sold=1 GROUP BY country`)
     res.send(countries[0])
@@ -61,10 +62,30 @@ router.get("/byAcquisition", async function(req, res){
     const untilThreeYearsAgo = await sequelize.query(`SELECT COUNT(*) FROM clients WHERE first_contact BETWEEN '2000-07-19T17:02:28.559Z' AND '${threeYearsAgo}' ORDER BY first_contact ASC`)
     const threeToOneYearAgo = await sequelize.query(`SELECT COUNT(*) FROM clients WHERE first_contact BETWEEN '${threeYearsAgo}' AND '${oneYearAgo}' ORDER BY first_contact ASC`)
     const lastYear = await sequelize.query(`SELECT COUNT(*) FROM clients WHERE first_contact BETWEEN '${oneYearAgo}' AND '${dateToday}' ORDER BY first_contact ASC`)
-    // const lastSixMonths = await sequelize.query(`SELECT COUNT(*) FROM clients WHERE first_contact BETWEEN '${sixMonthsAgo}' AND '${dateToday}' ORDER BY first_contact ASC`)
     const acquisitionByDate = [{time: " > 3 Years", count: untilThreeYearsAgo[0][0]['COUNT(*)']}, {time: "1-3 Years", count: threeToOneYearAgo[0][0]['COUNT(*)']}, {time: "< 12 Months", count: lastYear[0][0]['COUNT(*)']}]
     res.send(acquisitionByDate)
 })
 
-
+router.get("/:category", async function(req, res){
+    const category = req.params.category
+    if (category === "Email Type"){
+        let byEmail = await sequelize.query(`SELECT emailType, COUNT(sold) FROM clients WHERE clients.sold=1 GROUP BY emailType`)
+        res.send(byEmail[0])
+    
+    } else if (category == "Month") {
+        let byMonth = await sequelize.query(`SELECT first_contact, COUNT(sold) FROM clients WHERE clients.sold=1 GROUP BY first_contact`)
+        let months = byMonth[0].map(sale => sale.first_contact.getMonth() + 1)
+        const monthData = {}
+        for (let i of months){
+            if (!monthData[i]){
+                monthData[i] = 1
+            } else {
+                monthData[i]++
+            }
+        }
+        res.send(monthData)
+    }
+    const salesByCategory = await sequelize.query(`SELECT ${category}, COUNT(sold) FROM clients WHERE clients.sold=1 GROUP BY ${category}`)
+    res.send(salesByCategory[0])
+})
 module.exports = router

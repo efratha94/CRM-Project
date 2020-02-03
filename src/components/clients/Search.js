@@ -65,16 +65,15 @@ class Search extends Component{
     render(){
         const categoriesArray = this.props.clients.categories
         return (
-               <> 
-               <div id="search-client">
-                    <input type="text" name="searchInput" onChange={this.handleInput} onKeyPress={this.keyPress} value={this.state.searchInput}/>
-                    <input list="categories" name="categories" onChange={this.handleInput}/>
+            <>
+                <div id="search-client">
+                    <input type="text" name="searchInput" onChange={this.handleInput} onKeyPress={this.keyPress} value={this.state.searchInput} />
+                    <input list="categories" name="categories" onChange={this.handleInput} />
                     <datalist id="categories">
-                    
-                {categoriesArray.map((category, index) => <option key={index} value={category}>{category}</option>)}
+                        {categoriesArray.map((category, index) => <option key={index} value={category}>{category}</option>)}
                     </datalist>
                 </div>
-               </> 
+            </> 
         )
     }
 }

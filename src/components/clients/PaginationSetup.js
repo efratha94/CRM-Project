@@ -9,7 +9,7 @@ const Pagination = inject("person", "clients")(observer((props) => {
     const [clientsList, setClients] = useState([])
     const [loading, setLoading] = useState(false)
     const [currentPage, setCurrentPage] = useState(1)
-    const [clientsPerPage, setClientsPerPage] = useState(20)
+    const [clientsPerPage] = useState(20)
 
     useEffect(() => {
         const fetchClients = async () => {
