@@ -83,7 +83,7 @@ export class ClientData {
             })
             this.clientsFiltered = filteredBy
         } else {
-            this.clientsFiltered = this.clients
+            this.clientsFiltered = []
         }
     }
 }

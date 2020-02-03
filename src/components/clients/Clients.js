@@ -3,7 +3,7 @@ import { observer, inject } from "mobx-react"
 import Client from "./Client"
 import Search from "./Search"
 import axios from "axios"
-
+import PaginationSetup from "./PaginationSetup"
 @inject("person", "clients")
 @observer
 
@@ -14,7 +14,6 @@ class Clients extends Component {
         }
     }
 
-  
 
     render() {
 
@@ -28,21 +27,7 @@ class Clients extends Component {
                 <div id="client-categories">
                     {categoriesArray.map((category, index) => <span key={index}>{category}</span>)}
                 </div>
-                {filteredClients.length !== 0 ? 
-                filteredClients.map((client, index) => {
-                    return (
-                        <div key={index}>
-                            <Client client={client} index={index} />
-                            </div>
-                    )
-                })
-                : clientsArray.map((client, index) => {
-                    return (
-                        <div key={index}>
-                            <Client client={client} index={index} />
-                        </div>
-                    )
-                })}
+                <PaginationSetup />
             </div>
         )
     }
