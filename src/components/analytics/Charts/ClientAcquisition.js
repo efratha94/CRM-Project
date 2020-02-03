@@ -24,7 +24,6 @@ class ClientAcquisition extends Component {
 
         let dataArray = []
         array.map(item => dataArray.push(item))
-        console.log(dataArray)
         return dataArray
     }
 

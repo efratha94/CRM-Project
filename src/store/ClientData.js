@@ -15,6 +15,7 @@ export class ClientData {
     @observable countriesTotalSales = []
     @observable salesByDate = []
     @observable clientsByAcquisition = []
+    @observable clientsFiltered = []
 
     @action getClients = async () => {
         const clientsInDB = await axios.get("http://localhost:3002/clients")
@@ -71,5 +72,18 @@ export class ClientData {
     @action acquisitionDate = async() => {
         const byAcquisition = await axios.get("http://localhost:3002/byAcquisition")
         this.clientsByAcquisition = byAcquisition.data
+    }
+
+    @action clientsByFilter(input, category) {
+        
+        if (input && category) {
+            let filteredBy = this.clients.filter(client => {
+                let clientValue = client[category].toLowerCase()
+                return clientValue.includes(input)
+            })
+            this.clientsFiltered = filteredBy
+        } else {
+            this.clientsFiltered = this.clients
+        }
     }
 }
