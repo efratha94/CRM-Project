@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const Sequelize = require("sequelize")
-const sequelize = new Sequelize("mysql://root:tedds19942@localhost/crm_project")
+const sequelize = new Sequelize("mysql://root:@localhost/crm_project")
 const moment = require("moment")
 
 router.get("/clients", async function(req, res){
